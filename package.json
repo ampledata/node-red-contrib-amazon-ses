@@ -1,0 +1,41 @@
+{
+  "name": "node-red-contrib-amazon-ses",
+  "version": "1.1.0",
+  "description": "NodeRED node to send email via the Amazon SES Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predev": "npm i -g",
+    "dev": "node-red -v"
+  },
+  "author": "Dan Hartveld",
+  "contributors": [
+    {
+      "name": "Dan Hartveld",
+      "email": "Dan Hartveld@redant.com"
+    }
+  ],
+  "keywords": [
+    "node-red",
+    "amazon ses",
+    "ses",
+    "aws",
+    "email",
+    "mail",
+    "redconnect"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redconnect-io/node-red-contrib-mandrill"
+  },
+  "node-red": {
+    "nodes": {
+      "ses-send": "ses-send.js"
+    }
+  },
+  "dependencies": {
+    "mailcomposer": "^3.10.0",
+    "node-ses": "^2.0.0"
+  }
+}

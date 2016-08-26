@@ -1,0 +1,104 @@
+<!-- Sample html file that corresponds to the 99-sample.js file              -->
+<!-- This creates and configures the onscreen elements of the node           -->
+
+<!-- If you use this as a template, update the copyright with your own name. -->
+
+<!-- First, the content of the edit dialog is defined.                       -->
+
+<script type="text/x-red" data-template-name="ses-send">
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name of this Event">
+    </div>
+    <div class="form-row">
+        <label for="node-input-api_region">AWS Region</label>
+        <input type="text" id="node-input-api_region" placeholder="us-west-2">
+    </div>
+    <div class="form-row">
+        <label for="node-input-api_key">API Access Key</label>
+        <input type="text" id="node-input-api_key" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-api_secret">API Access Secret</label>
+        <input type="text" id="node-input-api_secret" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-from">From</label>
+        <input type="text" id="node-input-from" placeholder="sender@example.com">
+    </div>
+    <div class="form-row">
+        <label for="node-input-to">To</label>
+        <input type="text" id="node-input-to" placeholder="recipient@example.com">
+    </div>
+    <div class="form-row">
+        <label for="node-input-subject">Subject</label>
+        <input type="text" id="node-input-subject" placeholder="subject">
+    </div>
+    <p>Note: Pass the HTML body to this node in the payload object.</p>
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<script type="text/x-red" data-help-name="ses-send">
+
+    <h3>About</h3>
+    <p>Send an email using Amazon SES API.</p>
+<br/>
+    Expects a msg.payload object that matches the format outlined here:
+<pre>
+{
+    from : The e-mail address of the sender. All e-mail addresses can be plain 'sender@server.com' or formatted 'Sender Name <sender@server.com>', see here for details
+    sender : An e-mail address that will appear on the Sender: field
+    to : Comma separated list or an array of recipients e-mail addresses that will appear on the To: field
+    cc : Comma separated list or an array of recipients e-mail addresses that will appear on the Cc: field
+    bcc : Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field
+    replyTo : An e-mail address that will appear on the Reply-To: field
+    inReplyTo : The message-id this message is replying
+    references : Message-id list (an array or space separated string)
+    subject : The subject of the e-mail
+    text : The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
+    html : The HTML version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
+    watchHtml : Apple Watch specific HTML version of the message, same usage as with text and html
+    icalEvent : iCalendar event, same usage as with text and html. Event method attribute defaults to 'PUBLISH' or define it yourself: {method: 'REQUEST', content: iCalString}. This value is added as an additional alternative to html or text. Only utf-8 content is allowed
+    headers : An object or array of additional header fields (e.g. {"X-Key-Name": "key value"} or [{key: "X-Key-Name", value: "val1"}, {key: "X-Key-Name", value: "val2"}])
+    attachments : An array of attachment objects (see below for details)
+    alternatives : An array of alternative text contents (in addition to text and html parts) (see below for details)
+    envelope : optional SMTP envelope, if auto generated envelope is not suitable (see below for details)
+    messageId : optional Message-Id value, random value will be generated if not set
+    date : optional Date value, current UTC string will be used if not set
+    encoding : optional transfer encoding for the textual parts
+    raw : if set then overwrites entire message output with this value. The value is not parsed, so you should still set address headers or the envelope value for the message to work
+    textEncoding : set explicitly which encoding to use for text parts (quoted-printable or base64). If not set then encoding is detected from text content (mostly ascii means quoted-printable, otherwise base64)
+}
+</pre>
+<br/>
+For more details see [mailcomposer](https://github.com/nodemailer/mailcomposer)
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<!-- The example below shows a small subset of the properties that can be set-->
+<script type="text/javascript">
+    RED.nodes.registerType('ses-send',{
+        category: 'email',
+        defaults: {    
+            name: {value:""},
+            api_key: {value:""},
+            api_secret: {value:""},
+            api_region: {value:""},
+            from: {value:""},
+            to: {value:""}, 
+            subject: {value:""}, 
+            html: {value:""}
+        },
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        icon: "ses.png",     // saved in  icons/myicon.png
+        color: "#EC8D12", 
+        label: function() {
+            return this.name || "Send Email";
+        },
+        paletteLabel: "Amazon SES"
+        
+    });
+</script>
